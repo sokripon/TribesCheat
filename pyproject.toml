@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "tribescheat"
+version = "0.1.0"
+description = "This is a tool allows you to reveice golden horns and experience."
+authors = ["sokripon <sokripon@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+httpx = "^0.23.0"
+loguru = "^0.6.0"
+pydantic = "^1.9.1"
+Pymem = "^1.8.5"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
