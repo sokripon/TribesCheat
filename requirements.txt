@@ -1,0 +1,5 @@
+python
+httpx
+loguru
+pydantic
+Pymem
