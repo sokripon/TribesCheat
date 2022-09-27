@@ -25,7 +25,7 @@ If applicable, add screenshots to help explain your problem.
 
 **Desktop (please complete the following information):**
  - Windows 10
- - Tribes of Midgard Versoim:
+ - Tribes of Midgard Version:
 
 **Additional context**
 Add any other context about the problem here.
