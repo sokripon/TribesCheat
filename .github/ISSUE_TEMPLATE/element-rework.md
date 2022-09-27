@@ -1,7 +1,7 @@
 ---
 name: Element Rework
-about: Suggest what should be recoded
-title: "[Rework] "
+about: Suggest an idea for this project
+title: "[Rework]"
 labels: rework
 assignees: sokripon
 
