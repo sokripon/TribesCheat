@@ -28,5 +28,9 @@ pip install -r requirements.txt
 ```bash
 python main.py
 ```
+
+### Video demo
+[![Watch the video](https://user-images.githubusercontent.com/79755465/193370189-275f4938-5953-4fcc-afb4-70338ebb15ae.png)](https://www.youtube.com/watch?v=57BhOAT6_6w)
+
 <br><br>
 Have fun :p
