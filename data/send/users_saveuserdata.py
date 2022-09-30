@@ -1,0 +1,81 @@
+from pydantic import BaseModel
+
+
+class Data(BaseModel):
+    HasSeenTutorial: bool
+    TotalSoulsSpent: int
+    HasMaxedSharpshooter: int
+    HasMaxedScout: int
+    HasMaxedFighter: int
+    HasMaxedBerserker: int
+    HasMaxedGuardian: int
+    HasMaxedSentinel: int
+    HasMaxedWarden: int
+    HasMaxedSeer: int
+    MaxUserLevelReached: int
+    HasRevivedPlayer: int
+    HasRevivedNPC: int
+    HasCompletedSeason: int
+    HasKillGiantIce: int
+    HasKillGiantFire: int
+    HasKillGiantThunder: int
+    HasKillGiantDark: int
+    HasKillMythBoss: int
+    HasCompletedTutorial: int
+    SurvivedDaysInEndless: int
+    ConstructionsCountInCreative: int
+    HasCraftCommon: int
+    HasCraftUncommon: int
+    HasCraftRare: int
+    HasCraftEpic: int
+    HasCraftLegendary: int
+    HasCraftMythic: int
+    MaxSoulCount: int
+    HasPet: int
+    CompletedChallenges: list[int]
+    BifrostUseCount: int
+    FastKillEnemyCount: int
+    RevealedAllShrineCount: int
+    FastBlockCount: int
+    SurvivedDaysInSeason: int
+    MaxGiantKillInASession: int
+    FenrirKillCount: int
+    FenrirEnragedKillTime: int
+    FenrirSummonerKillTime: int
+    JormungandrKillCount: int
+    JormungandrKillTime: int
+    MaxMythBossKillInASession: int
+    ShrineActivatedInASession: int
+    LatestSagaNewsPopup: int
+    SurtrKillCount: int
+    SurtrKillTime: int
+    HasDefeatFenrirSurvival: int
+    HasDefeatJormungandrSurvival: int
+    HasDefeatSurtrSurvival: int
+    HasDefeatGiantIceSurvival: int
+    HasDefeatGiantFireSurvival: int
+    HasDefeatGiantThunderSurvival: int
+    HasDefeatGiantDarkSurvival: int
+    WarriorMasteryOneCounter: int
+    BerserkerMasteryOneCounter: int
+    RangerMasteryOneCounter: int
+    HunterMasteryOneCounter: int
+    GuardianMasteryOneCounter: int
+    SentinelMasteryOneCounter: int
+    SeerMasteryOneCounter: int
+    WardenMasteryOneCounter: int
+    HasCraftCommonStationSurvival: int
+    HasCraftUncommonStationSurvival: int
+    HasCraftRareStationSurvival: int
+    HasCraftEpicStationSurvival: int
+    HasPlaceBoatSurvival: int
+    HasPlaceShrineSurvival: int
+    HasClaimBedSurvival: int
+    HasEquipFiveSameRunesSurvival: int
+    HarvestedFishCountSurvival: int
+    BranchAddedToBonfireCount: int
+    CompletedTutorialIds: list
+
+
+class Model(BaseModel):
+    Data: Data
