@@ -31,10 +31,10 @@ def follow_offsets(process, start: int, offsets: list[int]):
     return v
 
 
-def get_string_in_memory(process_name: str, offsets: list[int], start: int, size: int) -> str:
+def get_string_in_memory(process_name: str, module_name: str, offsets: list[int], module_offset: int, size: int) -> str:
     process = pymem.Pymem(process_name)
-    offsets = offsets
-    start = process.base_address + start
+    start_address = pymem.process.module_from_name(process.process_handle, module_name).lpBaseOfDll
+    start = start_address + module_offset
     ticket_address = follow_offsets(process, start, offsets)
     ticket_str = process.read_string(ticket_address, size)
     return ticket_str
@@ -227,7 +227,6 @@ def main():
                                                   PlayerStats=[player_save_stats])
         a = tribes_client.save_stats(world_stats.Model(WorldStats=world_save_stats, URLParams=[world.Data.id]))
         logger.info(f"World stats saved")
-
         c = tribes_client.leave_world(
             additional_leave_info=world_leave_send.Model(UseBifrost=True,
                                                          GoldenHornBonus=user_golden_horns,
