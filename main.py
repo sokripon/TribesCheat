@@ -4,6 +4,7 @@ import time
 import httpx
 import pymem
 from loguru import logger
+from pymem.exception import WinAPIError
 from pymem.ptypes import RemotePointer
 
 from data.send import world_create as world_create_send, world_stats
@@ -69,7 +70,24 @@ def set_horn_count(value: int):
 
 
 def get_ticket_from_game_memory():
-    return get_string_in_memory("TOM-Win64-Shipping.exe", [0x30, 0x18, 0x70, 0x28, 0x338, 0x0], 0x0515B668, 480)
+    import sqlite3
+    con = sqlite3.connect("auth_offsets.db")
+    cur = con.cursor()
+    res = cur.execute(
+        "SELECT name, moduleoffset, offset1, offset2, offset3, offset4, offset5, offset6, offset7 FROM results INNER JOIN modules on results.moduleid = modules.moduleid;")
+    for a in res.fetchall():
+        module_name = a[0]
+        module_offset = a[1]
+        offsets = [x for x in a[2:][::-1] if x is not None]
+        try:
+            _return = get_string_in_memory("TOM-Win64-Shipping.exe", module_name, offsets, module_offset,
+                                           480)
+
+            logger.success(f"{module_name=} {module_offset=} {offsets=}")
+            return _return
+        except WinAPIError as e:
+            logger.error(f"Offsetswrong: {module_name=} {module_offset=} {offsets=}")
+    raise NotImplementedError("No offsets found")
 
 
 class TribesClient:
