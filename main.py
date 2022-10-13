@@ -35,6 +35,7 @@ def follow_offsets(process, start: int, offsets: list[int]):
 def get_string_in_memory(process_name: str, module_name: str, offsets: list[int], module_offset: int, size: int) -> str:
     process = pymem.Pymem(process_name)
     start_address = pymem.process.module_from_name(process.process_handle, module_name).lpBaseOfDll
+
     start = start_address + module_offset
     ticket_address = follow_offsets(process, start, offsets)
     ticket_str = process.read_string(ticket_address, size)
@@ -70,24 +71,23 @@ def set_horn_count(value: int):
 
 
 def get_ticket_from_game_memory():
-    import sqlite3
-    con = sqlite3.connect("auth_offsets.db")
-    cur = con.cursor()
-    res = cur.execute(
-        "SELECT name, moduleoffset, offset1, offset2, offset3, offset4, offset5, offset6, offset7 FROM results INNER JOIN modules on results.moduleid = modules.moduleid;")
-    for a in res.fetchall():
-        module_name = a[0]
-        module_offset = a[1]
-        offsets = [x for x in a[2:][::-1] if x is not None]
+    process = pymem.Pymem("TOM-Win64-Shipping.exe")
+    module = pymem.process.module_from_name(process.process_handle, 'TOM-Win64-Shipping.exe')
+    bytes_pattern = b"\\x31\\x34\\x30\\x30\\x30\\x30\\x30\\x30"
+    possible_ticket_addresses = pymem.pattern.pattern_scan_all(process.process_handle, bytes_pattern,
+                                                             return_multiple=True)
+    logger.info(f"Found {len(possible_ticket_addresses)} possible memory locations")
+    for address in possible_ticket_addresses:
         try:
-            _return = get_string_in_memory("TOM-Win64-Shipping.exe", module_name, offsets, module_offset,
-                                           480)
-
-            logger.success(f"{module_name=} {module_offset=} {offsets=}")
-            return _return
-        except WinAPIError as e:
-            logger.error(f"Offsetswrong: {module_name=} {module_offset=} {offsets=}")
-    raise NotImplementedError("No offsets found")
+            ticket = process.read_string(address, 480)
+            if ticket.__contains__(" "):
+                logger.warning(f"{address} is valid but not what we are looking for")
+                continue
+            logger.info(f"Found ticket at {address}")
+            return ticket
+        except UnicodeError:
+            logger.warning(f"{address} is invalid")
+    raise ValueError("Could not find ticket in memory")
 
 
 class TribesClient:
@@ -233,7 +233,8 @@ def main():
                                                    CurrentTotalSeasonXP=user_info_start.Data.SeasonXP + user_season_xp,
                                                    Classe=99, Level=level, Portrait=0, XPEarned=0, CreatureKilled=0,
                                                    DamageDealt=0, HealingDone=0, AlliesRevived=0, IngredientHarvested=0,
-                                                   ItemCrafted=0, SoulsCollected=10, SoulsSpent=0, RunesLooted=0,
+                                                   ItemCrafted=0, SoulsCollected=10, SoulsSpent=0,
+                                                   RunesLooted=0,
                                                    GoldenHornsEarned=user_golden_horns,
                                                    SeasonXP=user_season_xp,
                                                    DaysSurvived=days,
