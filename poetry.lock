@@ -117,15 +117,27 @@ dotenv = ["python-dotenv (>=0.10.4)"]
 
 [[package]]
 name = "pymem"
-version = "1.8.5"
+version = "1.9.0"
 description = "pymem: python memory access made easy"
 category = "main"
 optional = false
 python-versions = "*"
 
+[package.dependencies]
+regex = {version = "*", optional = true, markers = "extra == \"speed\""}
+
 [package.extras]
-doc = ["recommonmark", "sphinx", "sphinx-rtd-theme", "sphinxcontrib-napoleon"]
-test = ["codecov", "pytest", "pytest-cov"]
+doc = ["recommonmark (==0.7.1)", "sphinx (==4.4.0)", "sphinx-rtd-theme (==1.0.0)"]
+speed = ["regex"]
+test = ["codecov", "pytest", "pytest-cov", "twine"]
+
+[[package]]
+name = "regex"
+version = "2022.9.13"
+description = "Alternative regular expression module, to replace re."
+category = "main"
+optional = false
+python-versions = ">=3.6"
 
 [[package]]
 name = "rfc3986"
@@ -171,7 +183,7 @@ dev = ["pytest (>=4.6.2)", "black (>=19.3b0)"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "bf1b0089357d031e6798df237418a1a277028ba3b3bee067f47e947f5b6585ec"
+content-hash = "361488695d6b7bbebfc5d5918c8ec8288a6fd0b644a0aaa6f92016f41ba0c9d9"
 
 [metadata.files]
 anyio = [
@@ -207,10 +219,8 @@ loguru = [
     {file = "loguru-0.6.0.tar.gz", hash = "sha256:066bd06758d0a513e9836fd9c6b5a75bfb3fd36841f4b996bc60b547a309d41c"},
 ]
 pydantic = []
-pymem = [
-    {file = "Pymem-1.8.5-py3-none-any.whl", hash = "sha256:3010d2e7bc1373a0b631fcb75191348266164a5f1ac3fb64e49f5665bde570c8"},
-    {file = "Pymem-1.8.5.tar.gz", hash = "sha256:fc29fa08df6fafeda8582513217d7a7074d56ef0855b5c3329b72f01821a09c6"},
-]
+pymem = []
+regex = []
 rfc3986 = [
     {file = "rfc3986-1.5.0-py2.py3-none-any.whl", hash = "sha256:a86d6e1f5b1dc238b218b012df0aa79409667bb209e58da56d0b94704e712a97"},
     {file = "rfc3986-1.5.0.tar.gz", hash = "sha256:270aaf10d87d0d4e095063c65bf3ddbc6ee3d0b226328ce21e036f946e421835"},
