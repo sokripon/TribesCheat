@@ -4,23 +4,22 @@ import time
 import httpx
 import pymem
 from loguru import logger
-from pymem.exception import WinAPIError
 from pymem.ptypes import RemotePointer
 
-from data.send import world_create as world_create_send, world_stats
-from data.receive import world_create as world_create_receive
-from data.receive import users_me
-from data.send import world_leave as world_leave_send
+import utils.world
 from data.receive import default_response
-from data.send import world_stats as world_stats_send
-from data.send import world_save as world_save_send
+from data.receive import users_me
+from data.receive import world_create as world_create_receive
+from data.receive import world_join as world_join_receive
+from data.receive import world_listrewards as world_listrewards_receive
 from data.receive import world_save as world_save_receive
 from data.send import users_saveuserdata
-from data.send import world_listrewards as world_listrewards_send
-from data.receive import world_listrewards as world_listrewards_receive
+from data.send import world_create as world_create_send, world_stats
 from data.send import world_join as world_join_send
-from data.receive import world_join as world_join_receive
-import utils.world
+from data.send import world_leave as world_leave_send
+from data.send import world_listrewards as world_listrewards_send
+from data.send import world_save as world_save_send
+from data.send import world_stats as world_stats_send
 
 
 def follow_offsets(process, start: int, offsets: list[int]):
@@ -75,7 +74,7 @@ def get_ticket_from_game_memory():
     module = pymem.process.module_from_name(process.process_handle, 'TOM-Win64-Shipping.exe')
     bytes_pattern = b"\\x31\\x34\\x30\\x30\\x30\\x30\\x30\\x30"
     possible_ticket_addresses = pymem.pattern.pattern_scan_all(process.process_handle, bytes_pattern,
-                                                             return_multiple=True)
+                                                               return_multiple=True)
     logger.info(f"Found {len(possible_ticket_addresses)} possible memory locations")
     for address in possible_ticket_addresses:
         try:
@@ -212,8 +211,10 @@ def main():
     user_info = user_info_start
     logger.info(
         f"Got user info before: {user_info_start.Data.Currencies[1]} golden horns, {user_info_start.Data.SeasonXP} season xp")
-    user_endless_horns = logged_input(
-        "Endless horns? (this will keep setting your horns to 99, your game will show a lower horn count, but you can still buy in the shop!)(y/n)(default=n): ") == "y"
+    # user_endless_horns = logged_input(
+    #     "Endless horns? (this will keep setting your horns to 99, your game will show a lower horn count, but you can still buy in the shop!)(y/n)(default=n): ") == "y"
+    user_endless_horns = False
+    # Temporarily disabled because of outdated offsets
     if user_endless_horns:
         user_golden_horns = 99
         user_season_xp = 0
