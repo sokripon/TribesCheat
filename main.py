@@ -256,6 +256,7 @@ def main():
         logger.success(
             f"Got new user info: {user_info.Data.Currencies[1]} golden horns, {user_info.Data.SeasonXP} season xp")
         logger.info("Restart the game to see the changes")
+        logged_input("You an now close the program or press enter to exit.")
         if user_endless_horns:
             while tribes_client.get_user_info().Data.Currencies[1] == 99:
                 time.sleep(1)
