@@ -32,5 +32,11 @@ python main.py
 ### Video demo
 [![Watch the video](https://user-images.githubusercontent.com/79755465/193370189-275f4938-5953-4fcc-afb4-70338ebb15ae.png)](https://www.youtube.com/watch?v=57BhOAT6_6w)
 
+#### For pyinstaller
+To create an exe file from the source code, you can use pyinstaller with the following command (you also need to install pyinstaller for that)
+```
+pyinstaller --icon=resources/icon.ico --onefile main.py
+```
+
 <br><br>
 Have fun :p
