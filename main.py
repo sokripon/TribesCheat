@@ -191,7 +191,7 @@ def main():
     giant_boss_kills = 0
     logger.remove()
     logger.add(sys.stdout, colorize=True, enqueue=False)
-    logger.info("Starting")
+    logger.info("Starting, made by sokripon at https://github.com/sokripon/TribesCheat, please report any bugs")
 
     if auth_token is None:
         logger.info(
