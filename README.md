@@ -5,8 +5,9 @@ This is a cheat made for the game Tribes of Midgard. This tool uses the [Tribes 
 <br><br>
 To achieve that it needs the auth-token for the game, you can either try to extract it yourself or you can have the game open and start the tool to automatically extract the auth-token from the game memory.
 ## To run the tool
-I recommend using [poetry](https://python-poetry.org/) to use this project, although you can use any package manager.
-
+You have 2 options.
+1. You can either run from the source code, I recommend using [poetry](https://python-poetry.org/), although you can use any package manager.
+2. Goto [Releases](https://github.com/sokripon/TribesCheat/releases) and download the main.exe file
 ### Using poetry
 ##### First install the dependencies:
 ```bash
