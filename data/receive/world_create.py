@@ -1,4 +1,5 @@
-from typing import Any
+
+from typing import Any, Optional
 
 from pydantic import BaseModel, Field
 
@@ -63,7 +64,7 @@ class UsersInfo(BaseModel):
     GoldenHornAmount: int
     id: str = Field(None, alias="_id")
     Name: str
-    XP: int
+    XP: Optional[int]
     IconId: int
     PlatformUserId: str
     PlatformId: int

@@ -112,7 +112,7 @@ class Data(BaseModel):
     Currencies: list[int]
     PurchasedCosmetics: list[int]
     Avatar: Avatar
-    XP: int
+    XP: Optional[int]
     SeasonXP: int
     Name: str
     ContentBundles: list[int]
