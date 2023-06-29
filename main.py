@@ -220,7 +220,7 @@ def main():
         user_season_xp = 0
     else:
         user_golden_horns = int(
-            logged_input("Please enter how many golden horns you want to receive(max is 99)(default=0): ") or 0)
+            logged_input("Please enter how many golden horns you want to receive(default=0): ") or 0)
         user_season_xp = int(logged_input("Please enter how much season xp you want to receive(default=0): ") or 0)
     while True:
         default_world = utils.world.create_default_world()
